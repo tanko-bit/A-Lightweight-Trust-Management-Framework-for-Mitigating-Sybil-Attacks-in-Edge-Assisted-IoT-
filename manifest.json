@@ -1,0 +1,38 @@
+{
+  "reproducibility_package": {
+    "title": "A Lightweight Trust Management Framework for Mitigating Sybil Attacks in Edge-Assisted Internet of Things (IoT)",
+    "authors": [
+      {
+        "name": "Ibrahim Tanko",
+        "email": "tibrahim@stu.csuc.edu.gh",
+        "affiliation": "Christian Service University, Kumasi, Ashanti, Ghana"
+      },
+      {
+        "name": "Nana Kofi Ahoi Appiah-Badu",
+        "email": "nappiah-badu@csuc.edu.gh",
+        "affiliation": "Christian Service University, Kumasi, Ashanti, Ghana"
+      }
+    ],
+    "package_version": "1.0.0",
+    "specification_date": "2026-09-12",
+    "target_platform": {
+      "language": "Python 3.11.8",
+      "os": "Linux (Ubuntu 22.04 LTS / Debian 12 Bookworm)",
+      "hardware_target": "Raspberry Pi 4 Model B (Broadcom BCM2711, 4x Cortex-A72 @ 1.5GHz)",
+      "memory_constraint": "512 MB strict RAM per edge node",
+      "single_core_target": "2.0 GHz equivalent CPU clock"
+    },
+    "benchmarks": [
+      { "id": "ltmf", "name": "LTMF", "type": "Proposed Framework" },
+      { "id": "btem", "name": "BTEM", "type": "Behavioral Trust Baseline" },
+      { "id": "dtrust", "name": "DTrust", "type": "Dirichlet Trust Baseline" },
+      { "id": "sybiledge", "name": "SybilEdge", "type": "Graph-ML Baseline" }
+    ],
+    "topologies": ["200-star", "500-mesh", "1000-hierarchical"],
+    "collusion_range": [0.10, 0.40],
+    "paired_runs": 30,
+    "statistical_metrics": ["accuracy", "false_positive_rate", "latency_ms", "energy_mj", "memory_mb"],
+    "identical_attack_traces": true,
+    "deterministic_random_seeds": true
+  }
+}

@@ -1,0 +1,110 @@
+# LTMF Master Reproducibility Configuration
+# Framework: Lightweight Trust Management Framework for Edge-Assisted IoT
+# Authors: Ibrahim Tanko & Nana Kofi Ahoi Appiah-Badu
+
+metadata:
+  package_version: "1.0.0"
+  schema_revision: "2026.09"
+  target_hardware: "Raspberry Pi 4 Model B (Broadcom BCM2711, 4x Cortex-A72 @ 1.5GHz)"
+  ram_cap_mb: 512
+  runtime: "Python 3.11.8 (x86_64 / arm64)"
+  seed_count: 30
+  confidence_interval: "95% (t-distribution critical value = 2.045, df=29)"
+
+topologies:
+  - id: "200-star"
+    nodes: 200
+    edge_servers: 1
+    structure: "star"
+    wireless: "IEEE 802.15.4 / BLE 5.0"
+  - id: "500-mesh"
+    nodes: 500
+    edge_servers: 10
+    structure: "mesh"
+    backhaul: "100 Mbps mesh, 10ms latency"
+    gossip_fanout: 4 # ceil(log2(10))
+  - id: "1000-hierarchical"
+    nodes: 1000
+    edge_servers: 20
+    structure: "hierarchical"
+    backhaul: "Binary tree meshed backbone"
+    gossip_fanout: 5 # ceil(log2(20))
+
+collusion_fractions:
+  - 0.10
+  - 0.20
+  - 0.30
+  - 0.40
+
+stopping_criteria:
+  simulation_epochs: 1000
+  trust_convergence_epsilon: 1.0e-4
+  gossip_max_rounds: 5
+  gossip_target_convergence_rounds: 3
+  consensus_commit_quorum: "2 * floor((M-1)/3) + 1"
+  repetition_runs: 30
+
+benchmarks:
+  ltmf:
+    name: "LTMF (Proposed)"
+    reference: "Tanko & Appiah-Badu (2026)"
+    mtee:
+      alpha_direct: 0.40
+      beta_indirect: 0.35
+      gamma_context: 0.25
+      decay_lambda: 0.85
+      window_width_events: 50
+      outlier_filter_sigma: 2.0
+      admission_theta: 0.60
+    esad:
+      trees: 50
+      sliding_window_samples: 256
+      max_tree_depth: 8
+      subsample_size: 256
+      features:
+        - "trust_score_velocity"
+        - "communication_frequency"
+        - "data_consistency"
+        - "recommendation_bias"
+        - "join_leave_frequency"
+        - "energy_anomaly_score"
+      memory_budget_mb: 3.0
+    diecp:
+      fanout_formula: "ceil(log2(M))"
+      consensus_msgs_per_round: "2M + 1"
+      bloom_filter_fp_rate: 0.01
+
+  btem:
+    name: "BTEM"
+    reference: "Bao & Chen (2012) / Chen et al. (2015)"
+    parameters:
+      social_intimacy_weight: 0.40
+      cooperation_weight: 0.40
+      recommendation_weight: 0.20
+      decay_rho: 0.90
+      history_buffer: 100
+      trust_threshold: 0.50
+
+  dtrust:
+    name: "DTrust"
+    reference: "Fung et al. (2011) / Mendoza & Kleinschmidt (2015)"
+    parameters:
+      prior_shape_alpha: [1.0, 1.0, 1.0]
+      forgetting_factor: 0.88
+      confidence_level: 0.95
+      uncertainty_penalty: 0.30
+      decision_boundary: 0.65
+
+  sybiledge:
+    name: "SybilEdge"
+    reference: "Singh et al. (2021)"
+    parameters:
+      classifier: "RandomForestClassifier(n_estimators=100)"
+      graph_hops_k: 2
+      features: ["degree", "clustering_coeff", "neighborhood_overlap", "message_rate"]
+      batch_retrain_interval: 50
+
+random_seeds:
+  base_seed: 42000
+  stride: 1337
+  count: 30

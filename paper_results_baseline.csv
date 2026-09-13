@@ -1,0 +1,20 @@
+Table/Figure,Approach,Metric,Reported_Value,Unit,Notes
+Table 2 & Fig 3,LTMF,Detection Accuracy,94.3,%,Average across all layouts and occlusion stages
+Table 2 & Fig 3,BTEM,Detection Accuracy,77.1,%,Vulnerable to ballot-stuffing
+Table 2 & Fig 3,DTrust,Detection Accuracy,81.4,%,Dirichlet multi-class formulation
+Table 2 & Fig 3,SybilEdge,Detection Accuracy,72.2,%,Graph ML baseline
+Text (Section 6.2),LTMF,Accuracy at 40% Collusion,89.7,%,Matches Theorem 1 resistance bound
+Text (Section 6.2),Top Competitor,Accuracy at 40% Collusion,68.3,%,Degrades under heavy collusion
+Figure 2,LTMF,False Positive Rate,3.1,%,Enforces high precision on legitimate devices
+Figure 2,Competitor Range (Lower),False Positive Rate,5.3,%,Reported lower bound for competitors
+Figure 2,Competitor Range (Upper),False Positive Rate,10.2,%,Reported upper bound for competitors
+Table 3 & Fig 4,LTMF,Average Latency,17.8,ms,Per-node trust evaluation latency
+Table 3 & Fig 4,BTEM,Average Latency,48.3,ms,Per-node trust evaluation latency
+Table 3 & Fig 4,DTrust,Average Latency,31.2,ms,Per-node trust evaluation latency
+Table 3 & Fig 4,SybilEdge,Average Latency,29.4,ms,Per-node trust evaluation latency
+Table 4 & Fig 5,LTMF,Energy Overhead,1.4,mJ / cycle,Raspberry Pi 4 emulator measurement
+Table 4 & Fig 5,BTEM,Energy Overhead,4.8,mJ / cycle,Raspberry Pi 4 emulator measurement
+Table 4 & Fig 5,DTrust,Energy Overhead,3.3,mJ / cycle,Raspberry Pi 4 emulator measurement
+Table 4,LTMF,Memory Footprint,2.9,MB maximum,Strictly bounded via 256-sample window
+Table 4,BTEM,Memory Footprint,Not reported,-,Unbounded sliding window in original
+Table 4,DTrust,Memory Footprint,Not reported,-,Not reported in original paper
